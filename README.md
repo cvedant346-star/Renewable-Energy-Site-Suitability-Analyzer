@@ -89,7 +89,11 @@ python3 src/main.py
 
 ## Results & Insights
 
-_[To be filled in — see `data/ranked_regions.csv` for the full ranking and `notebooks/exploration_or_modeling.ipynb` Section 2 for the scenario comparison across solar-heavy/wind-heavy weightings.]_
+Under the default weighting (40% solar / 30% wind / 15% cloud / 15% humidity), **Tamil Nadu leads with a suitability_score of 68.63**, but lands in "Medium Potential" — while **Punjab**, scoring lower at **58.64**, lands in "High Potential." This is a disclosed score/cluster mismatch, not a bug: KMeans tiers regions by their full factor profile, not by score rank alone, so the numeric score should always be checked alongside the tier label rather than in place of it.
+
+Re-running the index under solar-heavy and wind-heavy weight profiles shows which regions are resource-specific bets vs. genuinely balanced: **HP tops the solar-heavy ranking (#1) but drops to #10 under wind-heavy weighting**, while **Punjab shows the mirror pattern** — #19 under solar-heavy, back to #2 under wind-heavy. In contrast, **Karnataka, Madhya Pradesh, and Maharashtra stay consistently mid-pack (~ranks 5–10) across all three weighting scenarios**, making them the most balanced, lowest-risk candidates regardless of which resource an investor prioritizes.
+
+A notable part of this project was a **data quality discovery made mid-analysis**: an unreadable scatter plot led to finding that Punjab's and Tamil Nadu's raw `wind_speed_100m` readings were corrupted at the source (values in the hundreds — physically impossible at 100m hub height). This was fixed by clipping to a plausible range in `preprocessing.py` before averaging, with both regions marked `wind_speed_capped` in a new `data_quality_flag` column so their (now unrecoverable) relative wind ranking isn't over-trusted. See [docs/project_report.md](docs/project_report.md) for the full write-up, `data/ranked_regions.csv` for the complete ranking, and `notebooks/exploration_or_modeling.ipynb` Section 2 for the full scenario comparison.
 
 ## Limitations
 
