@@ -1,0 +1,14 @@
+pandas>=2.3.3
+openpyxl>=3.1.5
+scipy>=1.13.1
+scikit-learn>=1.6.1
+streamlit>=1.50.0
+plotly>=6.9.0
+
+# Needed to run notebooks/exploration_or_modeling.ipynb
+numpy>=2.0.2
+matplotlib>=3.9.4
+jupyter>=1.0.0
+ipykernel>=6.31.0
+nbformat>=5.10.4
+nbclient>=0.10.2
